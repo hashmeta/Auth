@@ -33,6 +33,5 @@ function validateMovie(movie){
     }
     return Joi.validate(movie,schema)
 }
-
 module.exports.Movie=Movie
 module.exports.validate=validateMovie

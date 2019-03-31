@@ -27,23 +27,18 @@ router.put('/:id', async (req, res) => {
         name:req.body.name,
         phone:req.body.phone,
         isGold:req.body.isGold
-    }
-        ,{new: true});
+    },{new: true});
     if (!customer) return res.status(404).send('The genre with the given ID was not found.');
     res.send(customer);
 })
 router.delete('/:id', async (req, res) => {
     const customer = await Customer.findByIdAndRemove(req.params.id);
-  
     if (!customer) return res.status(404).send('The genre with the given ID was not found.');
-  
     res.send(customer);
 });
 router.get('/:id', async (req, res) => {
     const customer = await Customer.findById(req.params.id);
-  
     if (!genre) return res.status(404).send('The genre with the given ID was not found.');
-  
     res.send(customer);
 });
 module.exports = router;
