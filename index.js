@@ -6,12 +6,17 @@ const rental=require('./routes/rental')
 const user=require('./routes/user')
 const auth=require('./routes/auth')
 const express = require('express');
+const config=require('config')
 const app = express();
 
 mongoose.connect('mongodb://localhost/Auth-Demo')
   .then(() => console.log('Connected to MongoDB...'))
   .catch(err => console.error('Could not connect to MongoDB...'));
 
+if (!config.get('jwtPrivateKey')){
+  console.error('Fatal error JWT Private Key not found ')
+  process.exit(0)
+}
 app.use(express.json());
 app.use('/api/genres', genres);
 app.use('/api/customer', customer);

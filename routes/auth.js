@@ -5,6 +5,7 @@ const express = require('express');
 const bcrypt=require('bcrypt')
 const _=require('loadsh')
 const router = express.Router();
+const jwt=require('jsonwebtoken')
 
 
 router.get('/',async(req,res)=>{
@@ -19,7 +20,10 @@ router.post('/',async(req,res)=>{
     if(!user) return res.status(400).send("User Doesnt found")
 
     const validpassword=await bcrypt.compare(req.body.password,user.password)
-    !validpassword ? res.send('Incorrent password'):res.send(`Welcome ${user.name}`)
+    const token=jwt.sign({_id:user._id},config.get('jwtPrivateKey'))
+    !validpassword ? res.send('Incorrent password'):res.send(`Welcome ${user.name},${token}`)
+
+
 })
 
 function validate(user) {
